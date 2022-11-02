@@ -1,6 +1,7 @@
+import 'package:denum_test_app/screens/code/code_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:denum_test_app/screens/login/login_errmsg.dart';
-import 'package:denum_test_app/screens/login/login_input_decoration.dart';
+import 'package:denum_test_app/screens/phone_num/phone_num_errmsg.dart';
+import 'package:denum_test_app/screens/phone_num/phone_num_decoration.dart';
 
 class PhoneNumScreen extends StatelessWidget {
   const PhoneNumScreen({super.key});
@@ -59,7 +60,13 @@ class PhoneNumScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 14),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const CodeScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Padding(

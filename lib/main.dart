@@ -1,4 +1,4 @@
-import 'package:denum_test_app/screens/login/phone_num_screen.dart';
+import 'package:denum_test_app/screens/phone_num/phone_num_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Denum Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
       ),
