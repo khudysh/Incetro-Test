@@ -1,7 +1,13 @@
-import 'package:denum_test_app/screens/code/code_screen.dart';
+import 'package:denum_test_app/screens/code/code_decoration.dart';
+import 'package:denum_test_app/screens/profile/profile_screen.dart';
+import 'package:denum_test_app/screens/profile/profile_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:denum_test_app/screens/phone_num/phone_num_errmsg.dart';
 import 'package:denum_test_app/screens/phone_num/phone_num_decoration.dart';
+import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/phone_num_model.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -12,79 +18,87 @@ class ProfileScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: const Color(0xFF918DE2),
         body: SingleChildScrollView(
-          child: Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Column(children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 80),
-                  child: const Image(
-                      width: 151,
-                      height: 101,
-                      image: AssetImage("assets/images/Logo1.png")),
-                ),
-                Container(
-                  //show error message here
-                  margin: const EdgeInsets.only(top: 100),
-                  // child: error ? ErrMsg(text: errormsg) : Container(),
-                  //if error == true then show error message
-                  //else set empty container as child
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  margin: const EdgeInsets.only(top: 8),
-                  child: TextField(
-                    keyboardType: TextInputType.phone,
-                    inputFormatters: [InputDecorationLogin().maskFormatter],
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                    // controller: _username, //set username controller
-                    decoration: InputDecorationLogin.myInputDecoration(
-                      label: "Введите номер телефона",
-                    ),
-                    onChanged: (value) {
-                      //set username  text on change
-                      // username = value;
-                    },
+                IconButton(
+                  onPressed: () => {Navigator.pop(context)},
+                  icon: const Icon(
+                    Icons.arrow_back_ios_rounded,
+                    size: 15.0,
+                    color: Colors.white,
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  margin: const EdgeInsets.only(top: 8),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(65),
-                        backgroundColor: const Color(0xFF1F145D)),
-                    child: const Padding(
-                      padding: EdgeInsets.only(top: 26, bottom: 26),
-                      child: Text(
-                        "Далее",
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const CodeScreen(),
-                        ),
-                      );
-                    },
+                    margin: const EdgeInsets.only(top: 15),
+                    child: const Text("Профиль",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold))),
+                IconButton(
+                  onPressed: () => {Navigator.pop(context)},
+                  icon: const Icon(
+                    Icons.logout_rounded,
+                    size: 20.0,
+                    color: Colors.white,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 170),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        Text("Privacy Policy",
-                            style: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.5))),
-                        Text("Terms and Conditions",
-                            style: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.5)))
-                      ]),
-                )
-              ]),
+              ],
+            ),
+            Container(
+                margin: const EdgeInsets.fromLTRB(24, 40, 24, 0),
+                child: const Text("Достоевский Фёдор Михайлович",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold))),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 41, 10, 0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: ProfileTile(
+                        icon: Icons.phone_outlined,
+                        string: context.watch<PhoneNum>().phoneNumber),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: ProfileTile(
+                        icon: Icons.mail_outline_rounded,
+                        string: "fedordostoevskiy@gmail.com"),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: ProfileTile(
+                        icon: Icons.credit_card_rounded,
+                        string: "**** **** **** 6972"),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: ProfileTile(
+                        icon: Icons.insert_drive_file_outlined,
+                        string: "Мои документы"),
+                  ),
+                ],
+              ),
+            ),
+          ]),
         ),
-      ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(bottom: 19),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text("Версия 1.0",
+                  style: TextStyle(
+                      fontSize: 16, color: Color.fromRGBO(255, 255, 255, 0.5))),
+            ],
+          ),
+        )),
     );
   }
 }

@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:denum_test_app/screens/phone_num/phone_num_errmsg.dart';
 import 'package:denum_test_app/screens/phone_num/phone_num_decoration.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/phone_num_model.dart';
 
 class CodeScreen extends StatelessWidget {
   const CodeScreen({super.key});
@@ -37,7 +40,8 @@ class CodeScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold))),
             Container(
                 margin: const EdgeInsets.only(top: 5),
-                child: const Text("Код выслан на номер +7 (963) 074-41-18",
+                child: Text(
+                    "Код выслан на номер ${context.watch<PhoneNum>().phoneNumber}",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -53,22 +57,21 @@ class CodeScreen extends StatelessWidget {
                   },
                   pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                   onCompleted: (pin) => {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const ProfileScreen(),
-                        ),
-                      )
-                    },
+                    pin == '1234' ? Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ProfileScreen(),
+                      ),
+                    ) : null
+                  },
                 )),
             Padding(
               padding: const EdgeInsets.only(top: 72),
               child: Container(
-                  child: const
-                    Text("Выслать код повторно через 00:59",
-                        style: TextStyle(
-                          fontSize: 16,
-                            color: Color.fromRGBO(255, 255, 255, 0.5))),
-                  ),
+                child: const Text("Выслать код повторно через 00:59",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Color.fromRGBO(255, 255, 255, 0.5))),
+              ),
             )
           ]),
         ),
